@@ -1,0 +1,11 @@
+tipo_taxi,archivo,mes_archivo,vendor_id,recogida,llegada,passenger_count,trip_distance,ratecode_id,store_and_fwd_flag,zona_origen,zona_destino,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,airport_fee,cbd_congestion_fee,request_source,ehail_fee,trip_type
+yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-01,2,2026-01-01 00:54:04,2026-01-01 00:59:37,1,0.97,1,N,239,238,1,7.2,1.0,0.5,3.66,0.0,1.0,15.86,2.5,0.0,0.0,,,
+yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-01,1,2026-01-01 00:34:04,2026-01-01 00:39:47,0,0.9,1,N,163,162,2,7.9,4.25,0.5,0.0,0.0,1.0,13.65,2.5,0.0,0.75,,,
+yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-01,1,2026-01-01 00:57:06,2026-01-01 01:05:59,0,1.4,1,N,43,237,1,10.7,4.25,0.5,2.5,0.0,1.0,18.95,2.5,0.0,0.75,,,
+yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-01,2,2026-01-01 00:15:22,2026-01-01 00:58:10,4,5.58,1,N,142,209,1,38.7,1.0,0.5,11.11,0.0,1.0,55.56,2.5,0.0,0.75,,,
+yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-01,2,2026-01-01 00:27:13,2026-01-01 00:40:43,0,2.16,1,N,88,144,1,13.5,1.0,0.5,3.85,0.0,1.0,23.1,2.5,0.0,0.75,,,
+green,data/raw/green/2026/green_tripdata_2026-01.parquet,2026-01-01,1,2026-01-01 00:27:58,2026-01-01 00:55:16,2,6.2,1,N,65,233,1,31.7,4.5,1.5,7.5,0.0,1.0,45.2,2.75,,0.75,,,1
+green,data/raw/green/2026/green_tripdata_2026-01.parquet,2026-01-01,2,2026-01-01 00:44:33,2026-01-01 01:32:56,5,5.36,5,N,66,188,1,50.0,0.0,0.0,10.2,0.0,1.0,61.2,0.0,,0.0,,,2
+green,data/raw/green/2026/green_tripdata_2026-01.parquet,2026-01-01,1,2026-01-01 00:23:45,2026-01-01 00:45:03,4,10.6,1,N,65,179,1,41.5,1.0,1.5,2.0,0.0,1.0,46.0,0.0,,0.0,,,1
+green,data/raw/green/2026/green_tripdata_2026-01.parquet,2026-01-01,1,2026-01-01 00:44:33,2026-01-01 01:00:45,1,4.2,1,N,42,141,2,19.8,3.75,1.5,0.0,0.0,1.0,25.05,2.75,,0.0,,,1
+green,data/raw/green/2026/green_tripdata_2026-01.parquet,2026-01-01,2,2026-01-01 00:46:04,2026-01-01 01:04:40,1,2.76,1,N,95,82,2,19.1,1.0,0.5,0.0,0.0,1.0,21.6,0.0,,0.0,,,1

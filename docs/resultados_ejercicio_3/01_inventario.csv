@@ -1,0 +1,17 @@
+tipo_taxi,mes_archivo,archivo,registros
+green,2026-01-01,data/raw/green/2026/green_tripdata_2026-01.parquet,40272
+green,2026-02-01,data/raw/green/2026/green_tripdata_2026-02.parquet,37373
+green,2026-03-01,data/raw/green/2026/green_tripdata_2026-03.parquet,44208
+green,2026-04-01,data/raw/green/2026/green_tripdata_2026-04.parquet,44238
+green,2026-05-01,data/raw/green/2026/green_tripdata_2026-05.parquet,44921
+green,2026-06-01,data/raw/green/2026/green_tripdata_2026-06.parquet,44163
+green,2026-07-01,data/raw/green/2026/green_tripdata_2026-07.parquet,41252
+green,2026-08-01,data/raw/green/2026/green_tripdata_2026-08.parquet,40687
+yellow,2026-01-01,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,3724889
+yellow,2026-02-01,data/raw/yellow/2026/yellow_tripdata_2026-02.parquet,3399866
+yellow,2026-03-01,data/raw/yellow/2026/yellow_tripdata_2026-03.parquet,3952451
+yellow,2026-04-01,data/raw/yellow/2026/yellow_tripdata_2026-04.parquet,3831240
+yellow,2026-05-01,data/raw/yellow/2026/yellow_tripdata_2026-05.parquet,4090836
+yellow,2026-06-01,data/raw/yellow/2026/yellow_tripdata_2026-06.parquet,3837248
+yellow,2026-07-01,data/raw/yellow/2026/yellow_tripdata_2026-07.parquet,3530109
+yellow,2026-08-01,data/raw/yellow/2026/yellow_tripdata_2026-08.parquet,3336716

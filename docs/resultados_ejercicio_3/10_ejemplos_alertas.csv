@@ -1,0 +1,13 @@
+alerta,tipo_taxi,archivo,recogida,llegada,passenger_count,trip_distance,fare_amount,total_amount,payment_type
+fecha_fuera_mes_archivo,yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2025-12-31 23:57:29,2025-12-31 23:57:32,2,0.01,-70.0,-71.5,3
+fecha_fuera_mes_archivo,yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2025-12-31 23:57:29,2025-12-31 23:57:32,2,0.01,70.0,71.5,3
+fecha_fuera_mes_archivo,yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2025-12-31 23:58:58,2026-01-01 01:04:39,2,40.14,167.2,198.7,2
+duracion_negativa,yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-17 19:30:00,2026-01-17 19:18:18,1,16.5,66.5,67.0,1
+duracion_negativa,yellow,data/raw/yellow/2026/yellow_tripdata_2026-02.parquet,2026-02-22 09:30:00,2026-02-22 09:28:57,1,0.6,16.5,17.0,1
+duracion_negativa,yellow,data/raw/yellow/2026/yellow_tripdata_2026-02.parquet,2026-02-26 04:10:10,2026-02-26 04:10:00,,0.02,-5.32,-5.82,0
+distancia_mayor_100_millas,yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-02 10:20:45,2026-01-02 10:36:06,2,36610.27,105.27,117.21,2
+distancia_mayor_100_millas,yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-03 17:21:42,2026-01-03 17:33:31,1,100.37,12.8,21.06,1
+distancia_mayor_100_millas,yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-04 13:41:17,2026-01-04 15:58:41,1,112.49,689.7,722.39,2
+total_negativo,yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-01 00:54:05,2026-01-01 00:56:36,1,0.63,-5.1,-10.1,4
+total_negativo,yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-01 00:43:29,2026-01-01 01:09:26,1,1.92,-22.6,-28.35,4
+total_negativo,yellow,data/raw/yellow/2026/yellow_tripdata_2026-01.parquet,2026-01-01 00:37:39,2026-01-01 00:38:17,1,0.02,-3.0,-8.75,4
