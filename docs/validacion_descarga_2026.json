@@ -1,0 +1,116 @@
+{
+  "fecha_descarga_utc": "2026-10-07T00:23:22.557116+00:00",
+  "completo_segun_publicacion": true,
+  "archivos_validados": 16,
+  "no_publicados": [
+    "yellow 2026-09",
+    "yellow 2026-10",
+    "yellow 2026-11",
+    "yellow 2026-12",
+    "green 2026-09",
+    "green 2026-10",
+    "green 2026-11",
+    "green 2026-12"
+  ],
+  "total_bytes": 519727000,
+  "total_registros_metadata": 30040469,
+  "archivos": [
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-01.parquet",
+      "bytes": 64165080,
+      "registros": 3724889,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-02.parquet",
+      "bytes": 58683353,
+      "registros": 3399866,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-03.parquet",
+      "bytes": 67891249,
+      "registros": 3952451,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-04.parquet",
+      "bytes": 64818115,
+      "registros": 3831240,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-05.parquet",
+      "bytes": 69699174,
+      "registros": 4090836,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-06.parquet",
+      "bytes": 65465637,
+      "registros": 3837248,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-07.parquet",
+      "bytes": 61685033,
+      "registros": 3530109,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-08.parquet",
+      "bytes": 59043961,
+      "registros": 3336716,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-01.parquet",
+      "bytes": 991656,
+      "registros": 40272,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-02.parquet",
+      "bytes": 920753,
+      "registros": 37373,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-03.parquet",
+      "bytes": 1082530,
+      "registros": 44208,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-04.parquet",
+      "bytes": 1075896,
+      "registros": 44238,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-05.parquet",
+      "bytes": 1102947,
+      "registros": 44921,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-06.parquet",
+      "bytes": 1075836,
+      "registros": 44163,
+      "columnas": 22
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-07.parquet",
+      "bytes": 1018250,
+      "registros": 41252,
+      "columnas": 22
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-08.parquet",
+      "bytes": 1007530,
+      "registros": 40687,
+      "columnas": 22
+    }
+  ],
+  "errores": []
+}

@@ -1,8 +1,13 @@
 # Datos: no deben incluirse en el repositorio Git
+instrucciones/
 data/raw/**
 data/processed/**
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+*.parquet
+*.duckdb
+*.duckdb.wal
+*.part
 
 # Python
 __pycache__/
