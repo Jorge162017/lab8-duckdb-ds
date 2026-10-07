@@ -1,0 +1,16 @@
+nivel,consulta,filas_resultado,esquema_igual,resultados_equivalentes,verificaciones_medidas
+pequeno,04_caracteristicas,2,True,True,10
+pequeno,02_demanda_mensual,2,True,True,10
+pequeno,03_formas_pago,11,True,True,10
+pequeno,05_filtro_fecha_zona,332,True,True,10
+pequeno,01_conteo,2,True,True,10
+mediano,02_demanda_mensual,12,True,True,10
+mediano,04_caracteristicas,2,True,True,10
+mediano,01_conteo,2,True,True,10
+mediano,03_formas_pago,12,True,True,10
+mediano,05_filtro_fecha_zona,332,True,True,10
+completo,01_conteo,2,True,True,10
+completo,02_demanda_mensual,40,True,True,10
+completo,04_caracteristicas,2,True,True,10
+completo,03_formas_pago,12,True,True,10
+completo,05_filtro_fecha_zona,332,True,True,10

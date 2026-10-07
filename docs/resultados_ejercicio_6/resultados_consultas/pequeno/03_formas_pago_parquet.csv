@@ -1,0 +1,12 @@
+tipo_taxi,payment_type,viajes,totales_negativos
+green,1.0,36658,0
+green,2.0,15913,4
+green,3.0,434,132
+green,4.0,128,46
+green,5.0,1,0
+green,,3415,3
+yellow,0.0,140162,2
+yellow,1.0,2319036,29
+yellow,2.0,439185,8326
+yellow,3.0,19595,5740
+yellow,4.0,46628,21406

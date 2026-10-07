@@ -1,0 +1,128 @@
+┌───────────────────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_decompress_strin│
+│           g(#0)           │
+│             #1            │
+│             #2            │
+│             #3            │
+│             #4            │
+│                           │
+│          ~0 rows          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│          ORDER_BY         │
+│    ────────────────────   │
+│ mediano.main.viajes_duckdb│
+│       .tipo_taxi ASC      │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_compress_string_│
+│        ubigint(#0)        │
+│             #1            │
+│             #2            │
+│             #3            │
+│             #4            │
+│                           │
+│          ~2 rows          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_decompress_strin│
+│           g(#0)           │
+│             #1            │
+│             #2            │
+│             #3            │
+│             #4            │
+│                           │
+│          ~2 rows          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│       HASH_GROUP_BY       │
+│    ────────────────────   │
+│         Groups: #0        │
+│                           │
+│        Aggregates:        │
+│        count_star()       │
+│          avg(#1)          │
+│          avg(#2)          │
+│          avg(#3)          │
+│                           │
+│          ~2 rows          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│         tipo_taxi         │
+│       trip_distance       │
+│ (CAST(date_diff('second', │
+│    recogida, llegada) AS  │
+│       DOUBLE) / 60.0)     │
+│        total_amount       │
+│                           │
+│       ~826,876 rows       │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│             #0            │
+│             #1            │
+│             #2            │
+│             #3            │
+│__internal_compress_string_│
+│        ubigint(#4)        │
+│                           │
+│       ~826,876 rows       │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│             #0            │
+│             #2            │
+│             #3            │
+│             #4            │
+│             #5            │
+│                           │
+│       ~826,876 rows       │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│           FILTER          │
+│    ────────────────────   │
+│     ((recogida >= CAST    │
+│ (mes_archivo AS TIMESTAMP)│
+│     ) AND (recogida <     │
+│ (mes_archivo + '1 month': │
+│ :INTERVAL)) AND (date_diff│
+│    ('second', recogida,   │
+│   llegada) BETWEEN 0 AND  │
+│           86400))         │
+│                           │
+│       ~826,876 rows       │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│          SEQ_SCAN         │
+│    ────────────────────   │
+│           Table:          │
+│ mediano.main.viajes_duckdb│
+│                           │
+│   Type: Sequential Scan   │
+│                           │
+│        Projections:       │
+│          recogida         │
+│        mes_archivo        │
+│       trip_distance       │
+│          llegada          │
+│        total_amount       │
+│         tipo_taxi         │
+│                           │
+│          Filters:         │
+│   trip_distance>0.0 AND   │
+│    trip_distance<=100.0   │
+│      total_amount>0.0     │
+│      fare_amount>=0.0     │
+│                           │
+│      ~4,134,380 rows      │
+└───────────────────────────┘

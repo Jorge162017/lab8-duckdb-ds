@@ -1,0 +1,124 @@
+┌───────────────────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_decompress_strin│
+│           g(#0)           │
+│__internal_decompress_integ│
+│     ral_integer(#1, 1)    │
+│             #2            │
+│             #3            │
+│                           │
+│          ~0 rows          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│          ORDER_BY         │
+│    ────────────────────   │
+│ pequeno.main.viajes_duckdb│
+│       .tipo_taxi ASC      │
+│ pequeno.main.viajes_duckdb│
+│      .zona_origen ASC     │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_compress_string_│
+│        ubigint(#0)        │
+│__internal_compress_integra│
+│     l_usmallint(#1, 1)    │
+│             #2            │
+│             #3            │
+│                           │
+│         ~503 rows         │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_decompress_strin│
+│           g(#0)           │
+│__internal_decompress_integ│
+│     ral_integer(#1, 1)    │
+│             #2            │
+│             #3            │
+│                           │
+│         ~503 rows         │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│       HASH_GROUP_BY       │
+│    ────────────────────   │
+│          Groups:          │
+│             #0            │
+│             #1            │
+│                           │
+│        Aggregates:        │
+│        count_star()       │
+│          avg(#2)          │
+│                           │
+│         ~503 rows         │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│         tipo_taxi         │
+│        zona_origen        │
+│        total_amount       │
+│                           │
+│       ~120,847 rows       │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│             #0            │
+│__internal_compress_string_│
+│        ubigint(#1)        │
+│__internal_compress_integra│
+│     l_usmallint(#2, 1)    │
+│                           │
+│       ~120,847 rows       │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│             #2            │
+│             #3            │
+│             #4            │
+│                           │
+│       ~120,847 rows       │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│           FILTER          │
+│    ────────────────────   │
+│     ((recogida >= CAST    │
+│ (mes_archivo AS TIMESTAMP)│
+│     ) AND (recogida <     │
+│ (mes_archivo + '1 month': │
+│        :INTERVAL)))       │
+│                           │
+│       ~120,847 rows       │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│          SEQ_SCAN         │
+│    ────────────────────   │
+│           Table:          │
+│ pequeno.main.viajes_duckdb│
+│                           │
+│   Type: Sequential Scan   │
+│                           │
+│        Projections:       │
+│          recogida         │
+│        mes_archivo        │
+│        total_amount       │
+│         tipo_taxi         │
+│        zona_origen        │
+│                           │
+│          Filters:         │
+│  recogida>='2024-01-10 00 │
+│   :00:00'::TIMESTAMP AND  │
+│   recogida<'2024-01-17 00 │
+│     :00:00'::TIMESTAMP    │
+│       payment_type=1      │
+│   trip_distance>0.0 AND   │
+│    trip_distance<=100.0   │
+│      total_amount>0.0     │
+│                           │
+│       ~604,235 rows       │
+└───────────────────────────┘

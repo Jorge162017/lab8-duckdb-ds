@@ -69,8 +69,8 @@ base materializada del Ejercicio 6. Se recomienda tener al menos 10 GB libres.
 
 ## Datos
 
-El repositorio incluye `scripts/download_data.py`, que descarga los archivos de
-2026 publicados por la TLC (`--help` muestra las opciones disponibles). Los
+El repositorio incluye `scripts/download_data.py`, que descarga los años indicados
+con `--years` (2026 por defecto; `--help` muestra las opciones disponibles). Los
 archivos se guardan en `data/raw/<tipo>/<anio>/`.
 
 La TLC publica cada mes con varias semanas de atraso, por lo que los ultimos
@@ -198,8 +198,36 @@ docker compose exec -T lab python scripts/validate_download.py
 
 La segunda descarga debe reportar cero archivos descargados si no se publicaron
 archivos adicionales entre las ejecuciones. No se incluyen en Git ni los datos
-ni la carpeta local `instrucciones/`. La incorporación de 2024 y 2025 se realizará
-en los ejercicios 5 y 8.
+ni la carpeta local `instrucciones/`. La incorporación de 2024 está completada en el ejercicio 5; 2025 se añadirá
+más adelante en el ejercicio 8.
+
+### Incorporar 2024 (ejercicio 5)
+
+Con ambos tipos de taxi de 2026 ya descargados, guarde las huellas antes de ampliar:
+
+```bash
+docker compose exec -T lab python scripts/validate_incremental.py --snapshot-2026
+docker compose exec -T lab python scripts/download_data.py --years 2024 2026 --verify-availability --manifest data/processed/download_manifest_2024_2026_inicial.json
+```
+
+Repita la descarga y valide el conjunto ampliado:
+
+```bash
+docker compose exec -T lab python scripts/download_data.py --years 2024 2026 --verify-availability
+docker compose exec -T lab python scripts/validate_download.py --manifest data/processed/download_manifest_2024_2026.json --require-full-years 2024
+docker compose exec -T lab python scripts/validate_incremental.py
+```
+
+La segunda ejecución debe omitir los archivos existentes; `--require-full-years`
+exige los doce meses de 2024 por tipo. El snapshot permite comprobar que los
+Parquet anteriores de 2026 no cambiaron en SHA-256, tamaño o fecha de modificación.
+No se reemplaza si ya existe. `--workers` controla las descargas simultáneas
+(3 por defecto, entre 1 y 8). Cada combinación de años tiene su propio manifiesto.
+
+Resultado verificado: 24 archivos nuevos de 2024 y 16 conservados de 2026;
+40 Parquet con 71.870.407 registros. Las fuentes, esquemas, continuidad SQL y
+preservación están documentados en `docs/ejercicio_5_incorporacion_2024.md`.
+Los datos, manifiestos y snapshot siguen excluidos de Git.
 
 ## Como ejecutar el analisis
 
@@ -245,11 +273,82 @@ especifican su población: fechas válidas para demanda/pagos y filtros adiciona
 de medición para características/costos. No se modifican los Parquet ni se
 excluyen viajes por pasajeros o pagos ausentes. Se incluye sensibilidad a los filtros.
 
-Los ejercicios 5 a 9 se desarrollarán en las etapas siguientes.
+Para revisar el ejercicio 5 abra `notebooks/05_incorporacion_2024.ipynb` y ejecute
+todas sus celdas después de completar la descarga y validación anteriores.
+También puede guardar sus salidas desde terminal:
+
+```bash
+docker compose exec -T lab jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=600 notebooks/05_incorporacion_2024.ipynb
+```
+
+Las seis consultas nuevas están en `sql/incremental/`. Los resultados conjuntos y
+la ejecución de las 21 consultas anteriores están en `docs/resultados_ejercicio_5/`;
+los resultados históricos de 2026 de los ejercicios 3 y 4 se conservan.
+Las vistas ahora declaran campos opcionales con una rama vacía tipada para permitir
+también lecturas aisladas de 2024. Los CSV y documentación de compatibilidad usan
+ambos años; para comparaciones anuales se debe agrupar o filtrar por año y usar
+cobertura común. `docs/preparacion_benchmark.json` identifica tres volúmenes de
+datos para el ejercicio 6; todavía no contiene mediciones de rendimiento.
+
+El ejercicio 6 está completado; su benchmark se reproduce con los comandos de
+la sección siguiente. Los ejercicios 7 a 9 se desarrollarán después.
 
 ## Como reproducir los benchmarks
 
-<!-- TODO (Ejercicio 6) -->
+Con el ejercicio 5 completo y su manifiesto de tres volúmenes preparado:
+
+```bash
+docker compose exec -T lab python scripts/benchmark.py --repetitions 5 --warmups 1 --threads 4 --memory-limit 2GB --seed 42
+```
+
+Se construye una tabla `viajes_duckdb` por conjunto en
+`data/processed/benchmark/{pequeno,mediano,completo}.duckdb`. Las bases y sus
+metadatos locales están excluidos de Git. El benchmark no cambia los Parquet.
+La fuente y la tabla tienen los mismos campos/filas; solo cambia el nombre de
+relación en las cinco consultas de `sql/benchmark/`. Se comprueban resultados
+en cada ejecución, usando igualdad exacta para conteos/categorías y tolerancias
+para medias flotantes. Se registran 150 mediciones y 30 calentamientos.
+
+Cada ejecución normal reconstruye las bases derivadas y mide el costo de
+construcción por separado. Para repetir consultas sobre las bases ya construidas:
+
+```bash
+docker compose exec -T lab python scripts/benchmark.py --reuse-materialized
+```
+
+La reutilización verifica los archivos y la definición de la fuente. Los costos
+de construcción conservados pertenecen a la ejecución original. Para ejecutar
+solo el conjunto pequeño puede añadir `--levels pequeno`. Para regenerar
+únicamente gráficos y documentación desde los tiempos registrados:
+
+```bash
+docker compose exec -T lab python scripts/benchmark.py --report-only
+```
+
+El protocolo mide ejecuciones recurrentes: calentamiento previo, consultas
+intercaladas y estrategias alternadas, sin vaciar cachés del sistema operativo.
+Los tiempos incluyen SQL y transferencia del resultado pequeño; no incluyen
+verificación, CSV, EXPLAIN ni materialización. El entorno, límites y tolerancias
+quedan registrados en `docs/resultados_ejercicio_6/entorno.json`.
+
+Revise `docs/ejercicio_6_benchmark.md`, los tiempos crudos, resumen, comparación,
+costos de materialización y equivalencia de `docs/resultados_ejercicio_6/`.
+Los planes y resultados por estrategia se guardan en subdirectorios de esa
+carpeta; los gráficos están en `docs/figuras_ejercicio_6/`.
+
+El notebook `notebooks/06_benchmark_parquet_duckdb.ipynb` carga los tiempos reales
+registrados sin volver a medir por defecto. Cambie `RUN_BENCHMARK` a `True` para
+reproducir desde sus celdas, o utilice el script anterior. Para guardar el notebook
+con sus tablas y gráficos:
+
+```bash
+docker compose exec -T lab jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=600 notebooks/06_benchmark_parquet_duckdb.ipynb
+```
+
+La base completa está lista para la conexión del tablero posterior: dentro de
+los contenedores, `/workspace/data/processed/benchmark/completo.duckdb`, tabla
+`viajes_duckdb`, en modo de solo lectura. Contiene 2024 y 2026 como instantánea;
+se deberá actualizar al incorporar 2025.
 
 ## Como generar los resultados principales
 
@@ -262,6 +361,13 @@ docker compose exec -T lab python scripts/analyze_trips.py
 ```
 
 Esto reproduce la validación, la exploración y el EDA de los ejercicios 2 a 4.
+Los scripts de exploración/EDA leen **todos los años locales**: después del
+ejercicio 5, ejecutarlos actualiza sus salidas con 2024 y 2026. Para comprobar
+compatibilidad sin sobrescribir los resultados históricos de 2026 utilice:
+
+```bash
+docker compose exec -T lab python scripts/validate_incremental.py
+```
 Los notebooks conservan sus resultados ejecutados. Los scripts actualizan los
 CSV, las figuras y la documentación con el conjunto de archivos disponible.
 Los percentiles aproximados pueden variar ligeramente entre ejecuciones;

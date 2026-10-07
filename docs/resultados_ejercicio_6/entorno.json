@@ -1,0 +1,31 @@
+{
+  "fecha_utc": "2026-10-07T18:37:11.554637+00:00",
+  "duckdb": "1.5.5",
+  "python": "3.11.14",
+  "sistema": "Linux-6.5.11-linuxkit-aarch64-with-glibc2.41",
+  "arquitectura": "aarch64",
+  "cpus_visibles": 8,
+  "cgroup_memory_max": "max",
+  "cgroup_cpu_max": "max 100000",
+  "threads": 4,
+  "memory_limit": "2GB",
+  "repeticiones": 5,
+  "calentamientos": 1,
+  "semilla": 42,
+  "conexion_mediciones": "read_only, una por nivel y ambas estrategias",
+  "caches": "un calentamiento mínimo; no se vacían cachés del SO; materialización previa lee los Parquet",
+  "temporizador": "perf_counter; execute y fetchall; excluye comparación, CSV, EXPLAIN y materialización",
+  "tolerancia": {
+    "enteros_y_categorias": "exacta",
+    "flotantes_rtol": 1e-09,
+    "flotantes_atol": 1e-08
+  },
+  "orden": "consultas barajadas por ronda; estrategias alternadas por par; secuencial",
+  "otros_servicios": "Jupyter, Metabase y otros contenedores pueden permanecer activos; no se aísla toda carga del host",
+  "niveles_ejecutados": [
+    "pequeno",
+    "mediano",
+    "completo"
+  ],
+  "materializacion_reutilizada": false
+}

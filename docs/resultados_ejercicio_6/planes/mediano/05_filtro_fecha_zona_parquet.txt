@@ -1,0 +1,145 @@
+┌───────────────────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_decompress_strin│
+│           g(#0)           │
+│             #1            │
+│             #2            │
+│             #3            │
+│                           │
+│          ~0 rows          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│          ORDER_BY         │
+│    ────────────────────   │
+│ "temp".main.viajes_parquet│
+│       .tipo_taxi ASC      │
+│ "temp".main.viajes_parquet│
+│      .zona_origen ASC     │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_compress_string_│
+│        ubigint(#0)        │
+│             #1            │
+│             #2            │
+│             #3            │
+│                           │
+│      ~3,721,857 rows      │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_decompress_strin│
+│           g(#0)           │
+│             #1            │
+│             #2            │
+│             #3            │
+│                           │
+│      ~3,721,857 rows      │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│       HASH_GROUP_BY       │
+│    ────────────────────   │
+│          Groups:          │
+│             #0            │
+│             #1            │
+│                           │
+│        Aggregates:        │
+│        count_star()       │
+│          avg(#2)          │
+│                           │
+│      ~3,721,857 rows      │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│         tipo_taxi         │
+│        zona_origen        │
+│        total_amount       │
+│                           │
+│      ~4,134,379 rows      │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_compress_string_│
+│        ubigint(#0)        │
+│             #1            │
+│             #2            │
+│                           │
+│      ~4,134,379 rows      │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│           UNION           ├──────────────┐
+└─────────────┬─────────────┘              │
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│         PROJECTION        ││         PROJECTION        │
+│    ────────────────────   ││    ────────────────────   │
+│             #0            ││             #0            │
+│             #3            ││             #3            │
+│             #4            ││             #4            │
+│                           ││                           │
+│      ~4,066,418 rows      ││        ~67,961 rows       │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│           FILTER          ││           FILTER          │
+│    ────────────────────   ││    ────────────────────   │
+│ (recogida < (mes_archivo +││ (recogida < (mes_archivo +│
+│    '1 month'::INTERVAL))  ││    '1 month'::INTERVAL))  │
+│                           ││                           │
+│      ~4,066,418 rows      ││        ~67,961 rows       │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│         PROJECTION        ││         PROJECTION        │
+│    ────────────────────   ││    ────────────────────   │
+│         tipo_taxi         ││          'green'          │
+│        mes_archivo        ││     CAST(try_strptime     │
+│          recogida         ││ (regexp_extract(filename, │
+│        zona_origen        ││   '_([0-9]{4}-[0-9]{2})\  │
+│        total_amount       ││  .parquet$', 1), '%Y-%m') │
+│                           ││          AS DATE)         │
+│                           ││    lpep_pickup_datetime   │
+│                           ││        PULocationID       │
+│                           ││        total_amount       │
+│                           ││                           │
+│      ~4,066,418 rows      ││        ~67,961 rows       │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│           UNION           ││           UNION           │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│           FILTER          ││           FILTER          │
+│    ────────────────────   ││    ────────────────────   │
+│     (recogida >= CAST     ││     (recogida >= CAST     │
+│(mes_archivo AS TIMESTAMP))││(mes_archivo AS TIMESTAMP))│
+│                           ││                           │
+│          ~0 rows          ││          ~0 rows          │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│        READ_PARQUET       ││        READ_PARQUET       │
+│    ────────────────────   ││    ────────────────────   │
+│         Function:         ││         Function:         │
+│        READ_PARQUET       ││        READ_PARQUET       │
+│                           ││                           │
+│        Projections:       ││        Projections:       │
+│    tpep_pickup_datetime   ││    lpep_pickup_datetime   │
+│        PULocationID       ││        PULocationID       │
+│        total_amount       ││        total_amount       │
+│          filename         ││          filename         │
+│                           ││                           │
+│          Filters:         ││          Filters:         │
+│   tpep_pickup_datetime>=  ││   lpep_pickup_datetime>=  │
+│   '2024-01-10 00:00:00':  ││   '2024-01-10 00:00:00':  │
+│       :TIMESTAMP AND      ││       :TIMESTAMP AND      │
+│    tpep_pickup_datetime<  ││    lpep_pickup_datetime<  │
+│   '2024-01-17 00:00:00':  ││   '2024-01-17 00:00:00':  │
+│         :TIMESTAMP        ││         :TIMESTAMP        │
+│   trip_distance>0.0 AND   ││   trip_distance>0.0 AND   │
+│    trip_distance<=100.0   ││    trip_distance<=100.0   │
+│       payment_type=1      ││      total_amount>0.0     │
+│      total_amount>0.0     ││       payment_type=1      │
+│                           ││                           │
+│      ~4,066,418 rows      ││        ~67,961 rows       │
+└───────────────────────────┘└───────────────────────────┘

@@ -1,0 +1,159 @@
+┌───────────────────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_decompress_strin│
+│           g(#0)           │
+│             #1            │
+│             #2            │
+│             #3            │
+│             #4            │
+│                           │
+│          ~0 rows          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│          ORDER_BY         │
+│    ────────────────────   │
+│ "temp".main.viajes_parquet│
+│       .tipo_taxi ASC      │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_compress_string_│
+│        ubigint(#0)        │
+│             #1            │
+│             #2            │
+│             #3            │
+│             #4            │
+│                           │
+│           ~1 row          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_decompress_strin│
+│           g(#0)           │
+│             #1            │
+│             #2            │
+│             #3            │
+│             #4            │
+│                           │
+│           ~1 row          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│       HASH_GROUP_BY       │
+│    ────────────────────   │
+│         Groups: #0        │
+│                           │
+│        Aggregates:        │
+│        count_star()       │
+│          avg(#1)          │
+│          avg(#2)          │
+│          avg(#3)          │
+│                           │
+│           ~1 row          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│         tipo_taxi         │
+│       trip_distance       │
+│ (CAST(date_diff('second', │
+│    recogida, llegada) AS  │
+│       DOUBLE) / 60.0)     │
+│        total_amount       │
+│                           │
+│       ~120,846 rows       │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_compress_string_│
+│        ubigint(#0)        │
+│             #1            │
+│             #2            │
+│             #3            │
+│             #4            │
+│                           │
+│       ~120,846 rows       │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│           UNION           ├──────────────┐
+└─────────────┬─────────────┘              │
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│         PROJECTION        ││         PROJECTION        │
+│    ────────────────────   ││    ────────────────────   │
+│             #0            ││             #0            │
+│             #2            ││             #2            │
+│             #3            ││             #3            │
+│             #4            ││             #4            │
+│             #5            ││             #5            │
+│                           ││                           │
+│       ~118,584 rows       ││        ~2,262 rows        │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│           FILTER          ││           FILTER          │
+│    ────────────────────   ││    ────────────────────   │
+│ (recogida < (mes_archivo +││ (recogida < (mes_archivo +│
+│    '1 month'::INTERVAL))  ││    '1 month'::INTERVAL))  │
+│                           ││                           │
+│       ~118,584 rows       ││        ~2,262 rows        │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│         PROJECTION        ││         PROJECTION        │
+│    ────────────────────   ││    ────────────────────   │
+│         tipo_taxi         ││          'green'          │
+│        mes_archivo        ││     CAST(try_strptime     │
+│          recogida         ││ (regexp_extract(filename, │
+│          llegada          ││   '_([0-9]{4}-[0-9]{2})\  │
+│       trip_distance       ││  .parquet$', 1), '%Y-%m') │
+│        total_amount       ││          AS DATE)         │
+│                           ││    lpep_pickup_datetime   │
+│                           ││   lpep_dropoff_datetime   │
+│                           ││       trip_distance       │
+│                           ││        total_amount       │
+│                           ││                           │
+│       ~118,584 rows       ││        ~2,262 rows        │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│           UNION           ││           UNION           │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│           FILTER          ││           FILTER          │
+│    ────────────────────   ││    ────────────────────   │
+│     (recogida >= CAST     ││     (recogida >= CAST     │
+│(mes_archivo AS TIMESTAMP))││(mes_archivo AS TIMESTAMP))│
+│                           ││                           │
+│          ~0 rows          ││          ~0 rows          │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│           FILTER          ││           FILTER          │
+│    ────────────────────   ││    ────────────────────   │
+│    (date_diff('second',   ││    (date_diff('second',   │
+│    tpep_pickup_datetime,  ││    lpep_pickup_datetime,  │
+│   tpep_dropoff_datetime)  ││   lpep_dropoff_datetime)  │
+│    BETWEEN 0 AND 86400)   ││    BETWEEN 0 AND 86400)   │
+│                           ││                           │
+│       ~118,584 rows       ││        ~2,262 rows        │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│        READ_PARQUET       ││        READ_PARQUET       │
+│    ────────────────────   ││    ────────────────────   │
+│         Function:         ││         Function:         │
+│        READ_PARQUET       ││        READ_PARQUET       │
+│                           ││                           │
+│        Projections:       ││        Projections:       │
+│    tpep_pickup_datetime   ││    lpep_pickup_datetime   │
+│   tpep_dropoff_datetime   ││   lpep_dropoff_datetime   │
+│       trip_distance       ││       trip_distance       │
+│        total_amount       ││        total_amount       │
+│          filename         ││          filename         │
+│                           ││                           │
+│          Filters:         ││          Filters:         │
+│   trip_distance>0.0 AND   ││   trip_distance>0.0 AND   │
+│    trip_distance<=100.0   ││    trip_distance<=100.0   │
+│      fare_amount>=0.0     ││      fare_amount>=0.0     │
+│      total_amount>0.0     ││      total_amount>0.0     │
+│                           ││                           │
+│       ~592,924 rows       ││        ~11,310 rows       │
+└───────────────────────────┘└───────────────────────────┘

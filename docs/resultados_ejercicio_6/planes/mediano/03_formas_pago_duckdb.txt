@@ -1,0 +1,114 @@
+┌───────────────────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_decompress_strin│
+│           g(#0)           │
+│__internal_decompress_integ│
+│     ral_bigint(#1, 0)     │
+│             #2            │
+│             #3            │
+│                           │
+│          ~0 rows          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│          ORDER_BY         │
+│    ────────────────────   │
+│ mediano.main.viajes_duckdb│
+│       .tipo_taxi ASC      │
+│ mediano.main.viajes_duckdb│
+│     .payment_type ASC     │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_compress_string_│
+│        ubigint(#0)        │
+│__internal_compress_integra│
+│     l_utinyint(#1, 0)     │
+│             #2            │
+│             #3            │
+│                           │
+│          ~11 rows         │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_decompress_strin│
+│           g(#0)           │
+│__internal_decompress_integ│
+│     ral_bigint(#1, 0)     │
+│             #2            │
+│             #3            │
+│                           │
+│          ~11 rows         │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│       HASH_GROUP_BY       │
+│    ────────────────────   │
+│          Groups:          │
+│             #0            │
+│             #1            │
+│                           │
+│        Aggregates:        │
+│        count_star()       │
+│        count_if(#2)       │
+│                           │
+│          ~11 rows         │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│         tipo_taxi         │
+│        payment_type       │
+│    (total_amount < 0.0)   │
+│                           │
+│      ~4,134,380 rows      │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_compress_string_│
+│        ubigint(#0)        │
+│__internal_compress_integra│
+│     l_utinyint(#1, 0)     │
+│             #2            │
+│                           │
+│      ~4,134,380 rows      │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│             #2            │
+│             #3            │
+│             #4            │
+│                           │
+│      ~4,134,380 rows      │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│           FILTER          │
+│    ────────────────────   │
+│     ((recogida >= CAST    │
+│ (mes_archivo AS TIMESTAMP)│
+│     ) AND (recogida <     │
+│ (mes_archivo + '1 month': │
+│        :INTERVAL)))       │
+│                           │
+│      ~4,134,380 rows      │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│          SEQ_SCAN         │
+│    ────────────────────   │
+│           Table:          │
+│ mediano.main.viajes_duckdb│
+│                           │
+│   Type: Sequential Scan   │
+│                           │
+│        Projections:       │
+│          recogida         │
+│        mes_archivo        │
+│         tipo_taxi         │
+│        payment_type       │
+│        total_amount       │
+│                           │
+│      ~20,671,900 rows     │
+└───────────────────────────┘
