@@ -1,9 +1,17 @@
 -- Vistas en memoria: los viajes permanecen en los archivos Parquet.
 -- union_by_name admite columnas añadidas entre meses.
+-- La rama vacía declara campos opcionales incluso al leer solo 2024.
+-- WHERE FALSE garantiza que no añade registros ni imputa valores.
 CREATE OR REPLACE VIEW yellow_raw AS
-SELECT * FROM read_parquet('data/raw/yellow/*/*.parquet', union_by_name = true, filename = true);
+SELECT * FROM read_parquet('data/raw/yellow/*/*.parquet', union_by_name = true, filename = true)
+UNION ALL BY NAME
+SELECT NULL::DOUBLE AS cbd_congestion_fee, NULL::VARCHAR AS request_source
+WHERE FALSE;
 CREATE OR REPLACE VIEW green_raw AS
-SELECT * FROM read_parquet('data/raw/green/*/*.parquet', union_by_name = true, filename = true);
+SELECT * FROM read_parquet('data/raw/green/*/*.parquet', union_by_name = true, filename = true)
+UNION ALL BY NAME
+SELECT NULL::DOUBLE AS cbd_congestion_fee, NULL::VARCHAR AS request_source
+WHERE FALSE;
 
 -- Solo se armonizan nombres; no se eliminan ni imputan registros.
 CREATE OR REPLACE VIEW viajes AS

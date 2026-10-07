@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Descarga los archivos Parquet de 2026 del NYC TLC Trip Record Data.
+"""Descarga incremental de archivos Parquet del NYC TLC Trip Record Data.
 
 Descarga los registros de viajes de taxis amarillos (yellow) y verdes (green)
-correspondientes al anio 2026, que es el conjunto de datos inicial del
-laboratorio. Este script solo contempla el anio 2026.
+para los años indicados mediante --years. Por defecto se conserva 2026,
+el conjunto inicial del laboratorio. Cada archivo existente se conserva.
 
 Fuente oficial de los datos:
     https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
@@ -12,6 +12,7 @@ Uso:
     python scripts/download_data.py                 # amarillos y verdes
     python scripts/download_data.py --taxi yellow
     python scripts/download_data.py --taxi green
+    python scripts/download_data.py --years 2024 2026 --verify-availability
 
 Los archivos se guardan en:
     data/raw/<tipo>/<anio>/<nombre-original>.parquet
@@ -29,6 +30,8 @@ Comportamiento:
 
 import argparse
 import sys
+import os
+from concurrent.futures import ThreadPoolExecutor
 import json
 from datetime import datetime, timezone
 from functools import lru_cache
@@ -38,7 +41,8 @@ from pathlib import Path
 
 import requests
 
-ANIO = 2026
+ANIO_POR_DEFECTO = 2026
+ROOT = Path(__file__).resolve().parents[1]
 TIPOS_TAXI = ("yellow", "green")
 URL_BASE = "https://d37ci6vzurychx.cloudfront.net/trip-data"
 DIR_DESTINO = Path("data/raw")
@@ -77,19 +81,19 @@ def enlaces_publicados() -> frozenset:
     return urls
 
 
-def construir_nombre(tipo: str, mes: int) -> str:
+def construir_nombre(tipo: str, mes: int, anio: int = ANIO_POR_DEFECTO) -> str:
     """Nombre del archivo publicado por la TLC, p. ej. yellow_tripdata_2026-01.parquet."""
-    return f"{tipo}_tripdata_{ANIO}-{mes:02d}.parquet"
+    return f"{tipo}_tripdata_{anio}-{mes:02d}.parquet"
 
 
-def construir_url(tipo: str, mes: int) -> str:
+def construir_url(tipo: str, mes: int, anio: int = ANIO_POR_DEFECTO) -> str:
     """URL completa del archivo Parquet mensual."""
-    return f"{URL_BASE}/{construir_nombre(tipo, mes)}"
+    return f"{URL_BASE}/{construir_nombre(tipo, mes, anio)}"
 
 
-def ruta_destino(tipo: str, mes: int) -> Path:
+def ruta_destino(tipo: str, mes: int, anio: int = ANIO_POR_DEFECTO) -> Path:
     """Ruta local donde se guarda el archivo."""
-    return DIR_DESTINO / tipo / str(ANIO) / construir_nombre(tipo, mes)
+    return DIR_DESTINO / tipo / str(anio) / construir_nombre(tipo, mes, anio)
 
 
 def esta_publicado(url: str) -> bool:
@@ -155,110 +159,86 @@ def descargar_archivo(url: str, destino: Path) -> int:
     raise requests.RequestException(f"no se pudo descargar {url}: {ultimo_error}")
 
 
-def descargar(tipo: str, verificar: bool = False, archivos=None) -> dict:
-    """Descarga todos los meses publicados de un tipo de taxi para 2026."""
-    print(f"\n=== {tipo.upper()} {ANIO} ===")
-    resumen = {"descargados": 0, "omitidos": 0, "no_publicados": [], "fallidos": []}
-
-    for mes in range(1, 13):
-        etiqueta = f"{ANIO}-{mes:02d}"
-        destino = ruta_destino(tipo, mes)
-
-        registro = {"tipo": tipo, "anio": ANIO, "mes": mes,
-                    "url": construir_url(tipo, mes), "ruta": str(destino)}
-        if archivos is not None:
-            archivos.append(registro)
-        if not verificar and destino.exists() and destino.stat().st_size > 0:
-            print(f"  {etiqueta}  ya existe, se omite")
-            resumen["omitidos"] += 1
-            registro.update(estado="existente", bytes=destino.stat().st_size)
-            continue
-
-        url = construir_url(tipo, mes)
-        try:
-            publicado = esta_publicado(url)
-        except requests.RequestException as error:
-            print(f"  {etiqueta}  ERROR al consultar publicación: {error}")
-            resumen["fallidos"].append(etiqueta)
-            registro.update(estado="error_publicacion", error=str(error))
-            continue
-        if not publicado:
-            print(f"  {etiqueta}  aun no publicado por la TLC")
-            resumen["no_publicados"].append(etiqueta)
-            registro["estado"] = "no_publicado"
-            continue
-
-        if destino.exists() and destino.stat().st_size > 0:
-            print(f"  {etiqueta}  publicado y existente, se omite")
-            resumen["omitidos"] += 1
-            registro.update(estado="existente", bytes=destino.stat().st_size)
-            continue
-
-        print(f"  {etiqueta}  descargando...")
-        try:
-            escritos = descargar_archivo(url, destino)
-        except requests.RequestException as error:
-            print(f"  {etiqueta}  ERROR: {error}")
-            resumen["fallidos"].append(etiqueta)
-            registro.update(estado="error_descarga", error=str(error))
-        else:
-            print(f"  {etiqueta}  listo ({formato_tamanio(escritos)}) -> {destino}")
-            resumen["descargados"] += 1
-            registro.update(estado="descargado", bytes=escritos)
-
-    return resumen
+def procesar_archivo(tarea, verificar: bool) -> dict:
+    tipo, anio, mes = tarea
+    destino = ruta_destino(tipo, mes, anio)
+    url = construir_url(tipo, mes, anio)
+    etiqueta = f"{tipo} {anio}-{mes:02d}"
+    registro = {"tipo": tipo, "anio": anio, "mes": mes, "url": url,
+                "ruta": str(destino)}
+    existe = destino.exists() and destino.stat().st_size > 0
+    if existe and not verificar:
+        registro.update(estado="existente", bytes=destino.stat().st_size)
+        print(f"  {etiqueta}  existente, se omite", flush=True)
+        return registro
+    try:
+        publicado = esta_publicado(url)
+    except requests.RequestException as error:
+        registro.update(estado="error_publicacion", error=str(error))
+        print(f"  {etiqueta}  ERROR al consultar publicación: {error}", flush=True)
+        return registro
+    if not publicado:
+        registro["estado"] = "no_publicado"
+        print(f"  {etiqueta}  no publicado", flush=True)
+        return registro
+    if existe:
+        registro.update(estado="existente", bytes=destino.stat().st_size)
+        print(f"  {etiqueta}  publicado y existente, se omite", flush=True)
+        return registro
+    print(f"  {etiqueta}  descargando...", flush=True)
+    try:
+        escritos = descargar_archivo(url, destino)
+    except requests.RequestException as error:
+        registro.update(estado="error_descarga", error=str(error))
+        print(f"  {etiqueta}  ERROR: {error}", flush=True)
+    else:
+        registro.update(estado="descargado", bytes=escritos)
+        print(f"  {etiqueta}  listo ({formato_tamanio(escritos)})", flush=True)
+    return registro
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description=f"Descarga los datos de taxis de {ANIO} del NYC TLC."
-    )
-    parser.add_argument(
-        "--taxi", choices=(*TIPOS_TAXI, "all"), default="all",
-        help="tipo de taxi a descargar (por defecto: all)",
-    )
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--taxi", choices=(*TIPOS_TAXI, "all"), default="all")
+    parser.add_argument("--years", nargs="+", type=int, default=[ANIO_POR_DEFECTO],
+                        help="años a descargar (por defecto: 2026)")
+    parser.add_argument("--workers", type=int, default=3,
+                        help="descargas simultáneas, de 1 a 8 (por defecto: 3)")
     parser.add_argument("--verify-availability", action="store_true",
-                        help="consulta la publicación incluso para archivos locales; no los vuelve a descargar")
+                        help="consulta la publicación incluso para archivos locales sin volver a descargarlos")
     parser.add_argument("--manifest", type=Path,
-                        default=Path("data/processed/download_manifest_2026.json"),
-                        help="ruta del reporte JSON de esta ejecución")
-    argumentos = parser.parse_args()
-
-    tipos = TIPOS_TAXI if argumentos.taxi == "all" else (argumentos.taxi,)
-
-    total = {"descargados": 0, "omitidos": 0, "no_publicados": [], "fallidos": []}
-    archivos = []
-    for tipo in tipos:
-        resumen = descargar(tipo, argumentos.verify_availability, archivos)
-        total["descargados"] += resumen["descargados"]
-        total["omitidos"] += resumen["omitidos"]
-        total["no_publicados"] += [f"{tipo} {m}" for m in resumen["no_publicados"]]
-        total["fallidos"] += [f"{tipo} {m}" for m in resumen["fallidos"]]
-
-    print("\n" + "=" * 60)
-    print("RESUMEN")
-    print("=" * 60)
-    print(f"  descargados   : {total['descargados']}")
-    print(f"  ya existian   : {total['omitidos']}")
-    print(f"  no publicados : {len(total['no_publicados'])}")
-    if total["no_publicados"]:
-        print(f"      {', '.join(total['no_publicados'])}")
-    print(f"  fallidos      : {len(total['fallidos'])}")
-    if total["fallidos"]:
-        print(f"      {', '.join(total['fallidos'])}")
-    print("=" * 60)
-
-    argumentos.manifest.parent.mkdir(parents=True, exist_ok=True)
-    argumentos.manifest.write_text(json.dumps({
+                        help="reporte JSON; por defecto data/processed/download_manifest_<años>.json")
+    args = parser.parse_args()
+    if not 1 <= args.workers <= 8:
+        parser.error("--workers debe estar entre 1 y 8")
+    if any(anio < 2009 or anio > datetime.now(timezone.utc).year for anio in args.years):
+        parser.error("--years debe contener años desde 2009 hasta el año actual")
+    os.chdir(ROOT)
+    anios = sorted(set(args.years))
+    tipos = list(TIPOS_TAXI) if args.taxi == "all" else [args.taxi]
+    tareas = [(tipo, anio, mes) for tipo in tipos for anio in anios for mes in range(1, 13)]
+    with ThreadPoolExecutor(max_workers=args.workers) as executor:
+        archivos = list(executor.map(lambda tarea: procesar_archivo(tarea, args.verify_availability), tareas))
+    resumen = {
+        "descargados": sum(r["estado"] == "descargado" for r in archivos),
+        "omitidos": sum(r["estado"] == "existente" for r in archivos),
+        "no_publicados": [f"{r['tipo']} {r['anio']}-{r['mes']:02d}" for r in archivos if r["estado"] == "no_publicado"],
+        "fallidos": [f"{r['tipo']} {r['anio']}-{r['mes']:02d}" for r in archivos if r["estado"].startswith("error_")],
+    }
+    manifest = args.manifest or Path("data/processed") / ("download_manifest_" + "_".join(map(str, anios)) + ".json")
+    manifest.parent.mkdir(parents=True, exist_ok=True)
+    manifest.write_text(json.dumps({
         "fecha_utc": datetime.now(timezone.utc).isoformat(),
+        "anios": anios, "tipos": tipos, "workers": args.workers,
         "catalogo_oficial": URL_CATALOGO,
         "enlaces_catalogo_consultado": sorted(enlaces_publicados())
             if enlaces_publicados.cache_info().currsize else None,
-        "verificacion_publicacion": argumentos.verify_availability,
-        "resumen": total, "archivos": archivos,
+        "verificacion_publicacion": args.verify_availability,
+        "resumen": resumen, "archivos": archivos,
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"  reporte      : {argumentos.manifest}")
-    return 1 if total["fallidos"] else 0
+    print("\nRESUMEN", json.dumps(resumen, ensure_ascii=False), flush=True)
+    print("Reporte:", manifest, flush=True)
+    return 1 if resumen["fallidos"] else 0
 
 
 if __name__ == "__main__":

@@ -1,0 +1,88 @@
+{
+  "estado": "datos_preparados_sin_mediciones_de_rendimiento",
+  "fuente": "docs/resultados_ejercicio_5/02_inventario.csv",
+  "niveles": [
+    {
+      "nombre": "pequeno",
+      "descripcion": "Enero de 2024, amarillos y verdes",
+      "cantidad_archivos": 2,
+      "registros": 3021175,
+      "bytes_parquet": 51323925,
+      "archivos": [
+        "data/raw/green/2024/green_tripdata_2024-01.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-01.parquet"
+      ]
+    },
+    {
+      "nombre": "mediano",
+      "descripcion": "Enero a junio de 2024, amarillos y verdes",
+      "cantidad_archivos": 12,
+      "registros": 20671900,
+      "bytes_parquet": 350080949,
+      "archivos": [
+        "data/raw/green/2024/green_tripdata_2024-01.parquet",
+        "data/raw/green/2024/green_tripdata_2024-02.parquet",
+        "data/raw/green/2024/green_tripdata_2024-03.parquet",
+        "data/raw/green/2024/green_tripdata_2024-04.parquet",
+        "data/raw/green/2024/green_tripdata_2024-05.parquet",
+        "data/raw/green/2024/green_tripdata_2024-06.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-01.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-02.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-03.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-04.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-05.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-06.parquet"
+      ]
+    },
+    {
+      "nombre": "completo",
+      "descripcion": "Todos los archivos validados de 2024 y 2026",
+      "cantidad_archivos": 40,
+      "registros": 71870407,
+      "bytes_parquet": 1228648745,
+      "archivos": [
+        "data/raw/green/2024/green_tripdata_2024-01.parquet",
+        "data/raw/green/2024/green_tripdata_2024-02.parquet",
+        "data/raw/green/2024/green_tripdata_2024-03.parquet",
+        "data/raw/green/2024/green_tripdata_2024-04.parquet",
+        "data/raw/green/2024/green_tripdata_2024-05.parquet",
+        "data/raw/green/2024/green_tripdata_2024-06.parquet",
+        "data/raw/green/2024/green_tripdata_2024-07.parquet",
+        "data/raw/green/2024/green_tripdata_2024-08.parquet",
+        "data/raw/green/2024/green_tripdata_2024-09.parquet",
+        "data/raw/green/2024/green_tripdata_2024-10.parquet",
+        "data/raw/green/2024/green_tripdata_2024-11.parquet",
+        "data/raw/green/2024/green_tripdata_2024-12.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-01.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-02.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-03.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-04.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-05.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-06.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-07.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-08.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-09.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-10.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-11.parquet",
+        "data/raw/yellow/2024/yellow_tripdata_2024-12.parquet",
+        "data/raw/green/2026/green_tripdata_2026-01.parquet",
+        "data/raw/green/2026/green_tripdata_2026-02.parquet",
+        "data/raw/green/2026/green_tripdata_2026-03.parquet",
+        "data/raw/green/2026/green_tripdata_2026-04.parquet",
+        "data/raw/green/2026/green_tripdata_2026-05.parquet",
+        "data/raw/green/2026/green_tripdata_2026-06.parquet",
+        "data/raw/green/2026/green_tripdata_2026-07.parquet",
+        "data/raw/green/2026/green_tripdata_2026-08.parquet",
+        "data/raw/yellow/2026/yellow_tripdata_2026-01.parquet",
+        "data/raw/yellow/2026/yellow_tripdata_2026-02.parquet",
+        "data/raw/yellow/2026/yellow_tripdata_2026-03.parquet",
+        "data/raw/yellow/2026/yellow_tripdata_2026-04.parquet",
+        "data/raw/yellow/2026/yellow_tripdata_2026-05.parquet",
+        "data/raw/yellow/2026/yellow_tripdata_2026-06.parquet",
+        "data/raw/yellow/2026/yellow_tripdata_2026-07.parquet",
+        "data/raw/yellow/2026/yellow_tripdata_2026-08.parquet"
+      ]
+    }
+  ],
+  "nota": "El ejercicio 6 materializará cada conjunto y medirá consultas equivalentes; este archivo no contiene tiempos ni afirma cuál estrategia es más rápida."
+}
