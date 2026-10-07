@@ -1,0 +1,5 @@
+poblacion,tipo_taxi,viajes,distancia_media_millas,duracion_media_minutos,total_medio_usd
+"Fechas válidas, sin filtros de medición",green,337016,13.352212684264043,20.769288846819588,25.490076049803108
+Fechas y mediciones válidas,green,323668,3.3605547659949173,21.242845652540918,25.573620870769748
+"Fechas válidas, sin filtros de medición",yellow,29703209,5.552949561106584,17.644265317142747,30.06970270514804
+Fechas y mediciones válidas,yellow,28240105,3.517592711855723,17.948973729617567,30.244624953739454

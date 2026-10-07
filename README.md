@@ -119,15 +119,133 @@ generar los resultados principales.
 
 ## Como levantar el ambiente
 
-<!-- TODO (Ejercicio 1.5) -->
+Trabajo individual sobre el fork: <https://github.com/Jorge162017/lab8-duckdb-ds>.
+
+Ambiente verificado: JupyterLab y Metabase responden con HTTP 200, y Metabase
+registra el driver DuckDB. La evidencia está en `docs/ejercicios_1_2.md`.
+
+Requisitos: Git, Docker Desktop (motor encendido) y Docker Compose. Se recomiendan
+al menos 10 GB libres. Desde la raíz del repositorio:
+
+```bash
+docker compose config --quiet
+docker compose up -d --build
+docker compose ps
+```
+
+Abra JupyterLab en <http://localhost:8888> y Metabase en
+<http://localhost:3000>. Complete la configuración inicial de Metabase al abrirlo
+por primera vez. Para verificar las respuestas HTTP y las herramientas:
+
+```bash
+curl -f http://localhost:8888/api/status
+curl -f http://localhost:3000/api/health
+docker compose exec -T lab python -c "import duckdb, pandas, pyarrow; print(duckdb.__version__, pandas.__version__, pyarrow.__version__)"
+```
+
+El servicio `lab` incluye Python, JupyterLab, DuckDB, Pandas, PyArrow, Matplotlib
+y Requests. Metabase incluye Java y el driver de DuckDB. Las versiones están
+fijadas en los Dockerfiles y `requirements.txt`.
+
+Dentro de los contenedores, los datos están en `/workspace/data`. Los puertos
+están publicados solamente en la interfaz local. Para revisar fallos:
+
+```bash
+docker compose logs --tail=100 lab metabase
+```
+
+Para detener el ambiente conservando los datos y la configuración de Metabase:
+
+```bash
+docker compose down
+```
+
+Un ambiente reproducible fija las dependencias y las rutas de ejecución; permite
+que otra persona repita el análisis con las mismas herramientas y reduce
+las diferencias entre computadoras. Véase [la documentación de los ejercicios 1 y 2](docs/ejercicios_1_2.md).
 
 ## Como descargar los datos
 
-<!-- TODO (Ejercicios 2.6, 5.1 y 8.1) -->
+La etapa inicial trabaja con taxis amarillos y verdes de 2026:
+
+```bash
+docker compose exec -T lab python scripts/download_data.py --verify-availability
+docker compose exec -T lab python scripts/validate_download.py
+```
+
+Los archivos se guardan en `data/raw/<tipo>/2026/`. El descargador consulta los
+12 meses por tipo: un HTTP 404 se registra como no publicado. Un HTTP 403 solo se considera
+no publicado si el enlace está ausente del catálogo oficial de la TLC; si el
+catálogo no puede consultarse o el archivo sí está listado, se registra un fallo.
+Los errores de conexión y otros errores HTTP también se registran como fallos. No supone que ya estén
+publicados los doce meses de 2026.
+
+Los archivos locales no vacíos se omiten. `--verify-availability` comprueba además
+su publicación sin descargarlos otra vez. Las descargas nuevas verifican tamaño
+HTTP (si está disponible) y firmas Parquet, y usan un archivo temporal `.part`.
+El reporte de cada ejecución queda en
+`data/processed/download_manifest_2026.json`. La validación lee los metadatos
+Parquet y genera `docs/validacion_descarga_2026.json`; ambos comandos deben terminar
+con código 0. El reporte de validación debe indicar
+`completo_segun_publicacion: true`.
+
+Para comprobar que una segunda ejecución conserva los archivos descargados:
+
+```bash
+docker compose exec -T lab python scripts/download_data.py --verify-availability
+docker compose exec -T lab python scripts/validate_download.py
+```
+
+La segunda descarga debe reportar cero archivos descargados si no se publicaron
+archivos adicionales entre las ejecuciones. No se incluyen en Git ni los datos
+ni la carpeta local `instrucciones/`. La incorporación de 2024 y 2025 se realizará
+en los ejercicios 5 y 8.
 
 ## Como ejecutar el analisis
 
-<!-- TODO -->
+El ejercicio 3 consulta los Parquet directamente, sin materializar viajes:
+
+```bash
+docker compose exec -T lab python scripts/explore_parquet.py
+```
+
+También puede abrir `notebooks/03_exploracion_parquet.ipynb` en JupyterLab y
+seleccionar **Run → Run All Cells**. Para ejecutarlo desde terminal y guardar
+las salidas:
+
+```bash
+docker compose exec -T lab jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=300 notebooks/03_exploracion_parquet.ipynb
+```
+
+Los dos métodos usan las mismas consultas de `sql/exploracion/`. Producen
+`docs/ejercicio_3_exploracion.md` y los CSV de `docs/resultados_ejercicio_3/`.
+Estos CSV contienen resultados pequeños, muestras y metadatos, no los archivos
+de datos completos. La documentación registra fuentes, objetivos, resultados,
+decisiones y alertas de calidad. Las vistas armonizan nombres de fechas y usan
+`union_by_name` para conservar columnas que cambian entre meses; no limpian los
+valores originales.
+
+Para el ejercicio 4, ejecute el análisis exploratorio y genere sus gráficos:
+
+```bash
+docker compose exec -T lab python scripts/analyze_trips.py
+```
+
+También puede abrir `notebooks/04_analisis_exploratorio.ipynb` y ejecutar todas
+sus celdas. Para guardar las salidas desde terminal:
+
+```bash
+docker compose exec -T lab jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=300 notebooks/04_analisis_exploratorio.ipynb
+```
+
+Los SQL están en `sql/eda/`; los resultados en `docs/resultados_ejercicio_4/`;
+los gráficos en `docs/figuras_ejercicio_4/`; y las preguntas, criterios de calidad,
+interpretaciones y hallazgos en `docs/ejercicio_4_analisis.md`. Las comparaciones
+especifican su población: fechas válidas para demanda/pagos y filtros adicionales
+de medición para características/costos. No se modifican los Parquet ni se
+excluyen viajes por pasajeros o pagos ausentes. Se incluye sensibilidad a los filtros.
+
+Los ejercicios 5 a 9 se desarrollarán en las etapas siguientes.
 
 ## Como reproducir los benchmarks
 
@@ -135,4 +253,16 @@ generar los resultados principales.
 
 ## Como generar los resultados principales
 
-<!-- TODO -->
+Con el ambiente encendido y los datos descargados:
+
+```bash
+docker compose exec -T lab python scripts/validate_download.py
+docker compose exec -T lab python scripts/explore_parquet.py
+docker compose exec -T lab python scripts/analyze_trips.py
+```
+
+Esto reproduce la validación, la exploración y el EDA de los ejercicios 2 a 4.
+Los notebooks conservan sus resultados ejecutados. Los scripts actualizan los
+CSV, las figuras y la documentación con el conjunto de archivos disponible.
+Los percentiles aproximados pueden variar ligeramente entre ejecuciones;
+los conteos y las definiciones de poblaciones son exactos.
