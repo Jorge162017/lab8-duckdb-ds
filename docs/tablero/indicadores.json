@@ -1,0 +1,357 @@
+{
+  "name": "Lab 8 · Viajes de taxi NYC",
+  "indicators": [
+    {
+      "key": "01_viajes",
+      "name": "Viajes con fechas válidas",
+      "question": "¿Cuántos viajes hay en la selección?",
+      "rationale": "Cuantifica el volumen observado sin confundir los meses no publicados con cero viajes.",
+      "population": "temporal",
+      "unit": "viajes",
+      "sql": "sql/indicadores/01_viajes.sql",
+      "display": "scalar",
+      "visualization_settings": {
+        "scalar.decimals": 0
+      },
+      "row": 3,
+      "col": 0,
+      "size_x": 6,
+      "size_y": 4
+    },
+    {
+      "key": "02_retencion",
+      "name": "Cobertura de mediciones (%)",
+      "question": "¿Qué porcentaje conserva el análisis de mediciones?",
+      "rationale": "Expone el efecto del filtrado y su denominador.",
+      "population": "temporal y mediciones",
+      "unit": "%",
+      "sql": "sql/indicadores/02_retencion.sql",
+      "display": "scalar",
+      "visualization_settings": {
+        "scalar.decimals": 2
+      },
+      "row": 3,
+      "col": 6,
+      "size_x": 6,
+      "size_y": 4
+    },
+    {
+      "key": "03_distancia",
+      "name": "Distancia mediana (millas)",
+      "question": "¿Cuál es la distancia típica?",
+      "rationale": "La mediana reduce la influencia de extremos; se declara la población filtrada.",
+      "population": "mediciones",
+      "unit": "millas",
+      "sql": "sql/indicadores/03_distancia.sql",
+      "display": "scalar",
+      "visualization_settings": {
+        "scalar.decimals": 2
+      },
+      "row": 3,
+      "col": 12,
+      "size_x": 6,
+      "size_y": 4
+    },
+    {
+      "key": "04_total",
+      "name": "Total mediano (USD)",
+      "question": "¿Cuánto se paga típicamente?",
+      "rationale": "El total incluye conceptos adicionales a la tarifa base; no equivale a precio por milla.",
+      "population": "mediciones",
+      "unit": "USD",
+      "sql": "sql/indicadores/04_total.sql",
+      "display": "scalar",
+      "visualization_settings": {
+        "scalar.decimals": 2
+      },
+      "row": 3,
+      "col": 18,
+      "size_x": 6,
+      "size_y": 4
+    },
+    {
+      "key": "05_mensual",
+      "name": "Evolución mensual · índice diario",
+      "question": "¿Cómo cambia la demanda diaria por mes y tipo?",
+      "rationale": "Normaliza los días de cada mes y muestra el cambio relativo para comparar tipos de distinto volumen.",
+      "population": "temporal",
+      "unit": "índice: primer mes = 100",
+      "sql": "sql/indicadores/05_mensual.sql",
+      "display": "line",
+      "visualization_settings": {
+        "graph.dimensions": [
+          "mes",
+          "tipo_taxi"
+        ],
+        "graph.metrics": [
+          "indice_base100"
+        ],
+        "graph.show_values": false
+      },
+      "row": 7,
+      "col": 0,
+      "size_x": 12,
+      "size_y": 8
+    },
+    {
+      "key": "06_hora",
+      "name": "Perfil horario (%)",
+      "question": "¿En qué horas se concentran los viajes?",
+      "rationale": "Usa proporciones dentro de cada tipo para que amarillos no oculten a verdes.",
+      "population": "temporal",
+      "unit": "% dentro del tipo",
+      "sql": "sql/indicadores/06_hora.sql",
+      "display": "line",
+      "visualization_settings": {
+        "graph.dimensions": [
+          "hora",
+          "tipo_taxi"
+        ],
+        "graph.metrics": [
+          "porcentaje"
+        ],
+        "graph.show_values": false
+      },
+      "row": 7,
+      "col": 12,
+      "size_x": 12,
+      "size_y": 8
+    },
+    {
+      "key": "07_semana",
+      "name": "Demanda semanal · índice diario",
+      "question": "¿Qué días tienen más demanda promedio?",
+      "rationale": "Divide por las ocurrencias de cada día en los meses disponibles.",
+      "population": "temporal",
+      "unit": "índice respecto al promedio diario",
+      "sql": "sql/indicadores/07_semana.sql",
+      "display": "bar",
+      "visualization_settings": {
+        "graph.dimensions": [
+          "dia_semana",
+          "tipo_taxi"
+        ],
+        "graph.metrics": [
+          "indice_base100"
+        ],
+        "graph.show_values": false
+      },
+      "row": 15,
+      "col": 0,
+      "size_x": 12,
+      "size_y": 8
+    },
+    {
+      "key": "08_duracion",
+      "name": "Duración mediana por taxi (min)",
+      "question": "¿Cómo difiere la duración típica entre tipos?",
+      "rationale": "Compara la misma población de mediciones y usa una unidad única.",
+      "population": "mediciones",
+      "unit": "minutos",
+      "sql": "sql/indicadores/08_duracion.sql",
+      "display": "bar",
+      "visualization_settings": {
+        "graph.dimensions": [
+          "tipo_taxi"
+        ],
+        "graph.metrics": [
+          "mediana_minutos"
+        ],
+        "graph.show_values": false
+      },
+      "row": 15,
+      "col": 12,
+      "size_x": 12,
+      "size_y": 8
+    },
+    {
+      "key": "09_distribucion",
+      "name": "Distribución de distancia (%)",
+      "question": "¿Predominan los viajes cortos?",
+      "rationale": "Muestra la forma de la distribución en intervalos explícitos.",
+      "population": "mediciones",
+      "unit": "% dentro del tipo",
+      "sql": "sql/indicadores/09_distribucion.sql",
+      "display": "bar",
+      "visualization_settings": {
+        "graph.dimensions": [
+          "intervalo",
+          "tipo_taxi"
+        ],
+        "graph.metrics": [
+          "porcentaje"
+        ],
+        "graph.show_values": false
+      },
+      "row": 23,
+      "col": 0,
+      "size_x": 12,
+      "size_y": 8
+    },
+    {
+      "key": "10_pago",
+      "name": "Formas de pago (%)",
+      "question": "¿Qué modalidades de pago predominan?",
+      "rationale": "Conserva Flex Fare y los pagos sin dato sin reasignarlos a efectivo o tarjeta.",
+      "population": "temporal",
+      "unit": "% dentro del tipo",
+      "sql": "sql/indicadores/10_pago.sql",
+      "display": "bar",
+      "visualization_settings": {
+        "graph.dimensions": [
+          "forma_pago",
+          "tipo_taxi"
+        ],
+        "graph.metrics": [
+          "porcentaje"
+        ],
+        "graph.show_values": false
+      },
+      "row": 23,
+      "col": 12,
+      "size_x": 12,
+      "size_y": 8
+    },
+    {
+      "key": "11_propinas",
+      "name": "Propina / tarifa · mediana (%)",
+      "question": "¿Cómo difieren las propinas registradas en tarjeta?",
+      "rationale": "Las propinas en efectivo no se registran; el denominador es fare_amount, no el total.",
+      "population": "mediciones, tarjeta, tarifa positiva y propina no negativa",
+      "unit": "% de tarifa base",
+      "sql": "sql/indicadores/11_propinas.sql",
+      "display": "bar",
+      "visualization_settings": {
+        "graph.dimensions": [
+          "tipo_taxi"
+        ],
+        "graph.metrics": [
+          "tasa_mediana"
+        ],
+        "graph.show_values": false
+      },
+      "row": 31,
+      "col": 0,
+      "size_x": 12,
+      "size_y": 8
+    },
+    {
+      "key": "12_negativos",
+      "name": "Totales negativos por pago (%)",
+      "question": "¿Dónde aparecen importes negativos?",
+      "rationale": "Mantiene las anomalías y sus denominadores; no atribuye automáticamente causas.",
+      "population": "temporal",
+      "unit": "% negativo en categoría",
+      "sql": "sql/indicadores/12_negativos.sql",
+      "display": "bar",
+      "visualization_settings": {
+        "graph.dimensions": [
+          "forma_pago",
+          "tipo_taxi"
+        ],
+        "graph.metrics": [
+          "porcentaje_negativo"
+        ],
+        "graph.show_values": false
+      },
+      "row": 31,
+      "col": 12,
+      "size_x": 12,
+      "size_y": 8
+    },
+    {
+      "key": "13_cobertura",
+      "name": "Cobertura de archivos y años",
+      "question": "¿Qué meses y años respaldan la selección?",
+      "rationale": "Evita comparar un año completo con otro parcial.",
+      "population": "original",
+      "unit": "archivos y registros",
+      "sql": "sql/indicadores/13_cobertura.sql",
+      "display": "table",
+      "visualization_settings": {},
+      "row": 39,
+      "col": 0,
+      "size_x": 24,
+      "size_y": 5
+    },
+    {
+      "key": "14_demanda_comparable",
+      "name": "Demanda 3 años · meses comunes",
+      "question": "¿Cómo cambia la demanda en períodos equivalentes?",
+      "rationale": "Normaliza días calendario y usa la cobertura común en los tres años. Esta tarjeta compara siempre los tres años y no usa el filtro de año.",
+      "population": "meses comunes; temporal para demanda/pagos y mediciones para costo",
+      "unit": "índice: 2024 = 100",
+      "sql": "sql/indicadores/14_demanda_comparable.sql",
+      "display": "line",
+      "visualization_settings": {
+        "graph.dimensions": [
+          "anio",
+          "tipo_taxi"
+        ],
+        "graph.metrics": [
+          "indice_2024"
+        ]
+      },
+      "row": 44,
+      "col": 0,
+      "size_x": 12,
+      "size_y": 8,
+      "ignore_year": true
+    },
+    {
+      "key": "15_efectivo_comparable",
+      "name": "Efectivo 3 años · meses comunes",
+      "question": "¿Cómo evoluciona el pago en efectivo?",
+      "rationale": "Conserva los pagos ausentes en el denominador y usa meses comunes. Esta tarjeta compara siempre los tres años y no usa el filtro de año.",
+      "population": "meses comunes; temporal para demanda/pagos y mediciones para costo",
+      "unit": "% del tipo",
+      "sql": "sql/indicadores/15_efectivo_comparable.sql",
+      "display": "line",
+      "visualization_settings": {
+        "graph.dimensions": [
+          "anio",
+          "tipo_taxi"
+        ],
+        "graph.metrics": [
+          "porcentaje_efectivo"
+        ]
+      },
+      "row": 44,
+      "col": 12,
+      "size_x": 12,
+      "size_y": 8,
+      "ignore_year": true
+    },
+    {
+      "key": "16_total_comparable",
+      "name": "Total mediano 3 años · meses comunes",
+      "question": "¿Cómo cambia el total típico en períodos equivalentes?",
+      "rationale": "Compara medianas aproximadas de mediciones válidas; los USD son nominales, no ajustados por inflación. Esta tarjeta compara siempre los tres años y no usa el filtro de año.",
+      "population": "meses comunes; temporal para demanda/pagos y mediciones para costo",
+      "unit": "USD",
+      "sql": "sql/indicadores/16_total_comparable.sql",
+      "display": "line",
+      "visualization_settings": {
+        "graph.dimensions": [
+          "anio",
+          "tipo_taxi"
+        ],
+        "graph.metrics": [
+          "total_mediano_usd"
+        ]
+      },
+      "row": 52,
+      "col": 0,
+      "size_x": 24,
+      "size_y": 8,
+      "ignore_year": true
+    }
+  ],
+  "database_file": "data/processed/analitica/taxis_2024_2025_2026_f8c82cc0ebe1.duckdb",
+  "years": [
+    2024,
+    2025,
+    2026
+  ],
+  "evidence_dir": "docs/resultados_ejercicio_8/metabase"
+}

@@ -1,0 +1,417 @@
+{
+  "fecha_descarga_utc": "2026-10-08T19:37:12.583531+00:00",
+  "anios": [
+    2024,
+    2025,
+    2026
+  ],
+  "tipos": [
+    "green",
+    "yellow"
+  ],
+  "anios_completos_requeridos": [
+    2024,
+    2025
+  ],
+  "completo_segun_publicacion": true,
+  "archivos_validados": 64,
+  "no_publicados": [
+    "yellow 2026-09",
+    "yellow 2026-10",
+    "yellow 2026-11",
+    "yellow 2026-12",
+    "green 2026-09",
+    "green 2026-10",
+    "green 2026-11",
+    "green 2026-12"
+  ],
+  "total_bytes": 2073081961,
+  "total_registros_metadata": 121184384,
+  "archivos": [
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-01.parquet",
+      "bytes": 49961641,
+      "registros": 2964624,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-02.parquet",
+      "bytes": 50349284,
+      "registros": 3007526,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-03.parquet",
+      "bytes": 60078280,
+      "registros": 3582628,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-04.parquet",
+      "bytes": 59133625,
+      "registros": 3514289,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-05.parquet",
+      "bytes": 62553128,
+      "registros": 3723833,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-06.parquet",
+      "bytes": 59859922,
+      "registros": 3539193,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-07.parquet",
+      "bytes": 52299432,
+      "registros": 3076903,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-08.parquet",
+      "bytes": 51067350,
+      "registros": 2979183,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-09.parquet",
+      "bytes": 61170186,
+      "registros": 3633030,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-10.parquet",
+      "bytes": 64346071,
+      "registros": 3833771,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-11.parquet",
+      "bytes": 60658709,
+      "registros": 3646369,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2024/yellow_tripdata_2024-12.parquet",
+      "bytes": 61524085,
+      "registros": 3668371,
+      "columnas": 19
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-01.parquet",
+      "bytes": 59158238,
+      "registros": 3475226,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-02.parquet",
+      "bytes": 60343086,
+      "registros": 3577543,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-03.parquet",
+      "bytes": 69964745,
+      "registros": 4145257,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-04.parquet",
+      "bytes": 67352824,
+      "registros": 3970553,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-05.parquet",
+      "bytes": 77837865,
+      "registros": 4591845,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-06.parquet",
+      "bytes": 73542954,
+      "registros": 4322960,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-07.parquet",
+      "bytes": 66943728,
+      "registros": 3898963,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-08.parquet",
+      "bytes": 62293743,
+      "registros": 3574091,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-09.parquet",
+      "bytes": 72432945,
+      "registros": 4251015,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-10.parquet",
+      "bytes": 75267589,
+      "registros": 4428699,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-11.parquet",
+      "bytes": 71134255,
+      "registros": 4181444,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2025/yellow_tripdata_2025-12.parquet",
+      "bytes": 73701327,
+      "registros": 4305006,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-01.parquet",
+      "bytes": 64165080,
+      "registros": 3724889,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-02.parquet",
+      "bytes": 58683353,
+      "registros": 3399866,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-03.parquet",
+      "bytes": 67891249,
+      "registros": 3952451,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-04.parquet",
+      "bytes": 64818115,
+      "registros": 3831240,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-05.parquet",
+      "bytes": 69699174,
+      "registros": 4090836,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-06.parquet",
+      "bytes": 65465637,
+      "registros": 3837248,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-07.parquet",
+      "bytes": 61685033,
+      "registros": 3530109,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/yellow/2026/yellow_tripdata_2026-08.parquet",
+      "bytes": 59043961,
+      "registros": 3336716,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-01.parquet",
+      "bytes": 1362284,
+      "registros": 56551,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-02.parquet",
+      "bytes": 1283805,
+      "registros": 53577,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-03.parquet",
+      "bytes": 1372372,
+      "registros": 57457,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-04.parquet",
+      "bytes": 1346502,
+      "registros": 56471,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-05.parquet",
+      "bytes": 1453912,
+      "registros": 61003,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-06.parquet",
+      "bytes": 1326194,
+      "registros": 54748,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-07.parquet",
+      "bytes": 1250973,
+      "registros": 51837,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-08.parquet",
+      "bytes": 1267079,
+      "registros": 51771,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-09.parquet",
+      "bytes": 1326186,
+      "registros": 54440,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-10.parquet",
+      "bytes": 1353731,
+      "registros": 56147,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-11.parquet",
+      "bytes": 1264688,
+      "registros": 52222,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2024/green_tripdata_2024-12.parquet",
+      "bytes": 1312306,
+      "registros": 53994,
+      "columnas": 20
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-01.parquet",
+      "bytes": 1178451,
+      "registros": 48326,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-02.parquet",
+      "bytes": 1117474,
+      "registros": 46621,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-03.parquet",
+      "bytes": 1253510,
+      "registros": 51539,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-04.parquet",
+      "bytes": 1269227,
+      "registros": 52132,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-05.parquet",
+      "bytes": 1338798,
+      "registros": 55399,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-06.parquet",
+      "bytes": 1212934,
+      "registros": 49390,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-07.parquet",
+      "bytes": 1188380,
+      "registros": 48205,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-08.parquet",
+      "bytes": 1149707,
+      "registros": 46306,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-09.parquet",
+      "bytes": 1209831,
+      "registros": 48893,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-10.parquet",
+      "bytes": 1205685,
+      "registros": 49416,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-11.parquet",
+      "bytes": 1164775,
+      "registros": 46912,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2025/green_tripdata_2025-12.parquet",
+      "bytes": 1171145,
+      "registros": 48236,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-01.parquet",
+      "bytes": 991656,
+      "registros": 40272,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-02.parquet",
+      "bytes": 920753,
+      "registros": 37373,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-03.parquet",
+      "bytes": 1082530,
+      "registros": 44208,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-04.parquet",
+      "bytes": 1075896,
+      "registros": 44238,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-05.parquet",
+      "bytes": 1102947,
+      "registros": 44921,
+      "columnas": 21
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-06.parquet",
+      "bytes": 1075836,
+      "registros": 44163,
+      "columnas": 22
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-07.parquet",
+      "bytes": 1018250,
+      "registros": 41252,
+      "columnas": 22
+    },
+    {
+      "ruta": "data/raw/green/2026/green_tripdata_2026-08.parquet",
+      "bytes": 1007530,
+      "registros": 40687,
+      "columnas": 22
+    }
+  ],
+  "errores": []
+}

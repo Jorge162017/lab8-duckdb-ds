@@ -1,0 +1,50 @@
+{
+  "card_id": 55,
+  "status": "completed",
+  "columns": [
+    {
+      "name": "anio",
+      "base_type": "type/Text"
+    },
+    {
+      "name": "tipo_taxi",
+      "base_type": "type/Text"
+    },
+    {
+      "name": "total_mediano_usd",
+      "base_type": "type/Float"
+    }
+  ],
+  "rows": [
+    [
+      "2024",
+      "green",
+      19.116245848408276
+    ],
+    [
+      "2024",
+      "yellow",
+      20.955517249828194
+    ],
+    [
+      "2025",
+      "green",
+      19.829417882807707
+    ],
+    [
+      "2025",
+      "yellow",
+      21.64907837648605
+    ],
+    [
+      "2026",
+      "green",
+      20.57800238193114
+    ],
+    [
+      "2026",
+      "yellow",
+      23.60067522112339
+    ]
+  ]
+}

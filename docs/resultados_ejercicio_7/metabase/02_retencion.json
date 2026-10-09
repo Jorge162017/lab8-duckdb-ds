@@ -1,0 +1,15 @@
+{
+  "card_id": 41,
+  "status": "completed",
+  "columns": [
+    {
+      "name": "porcentaje",
+      "base_type": "type/Float"
+    }
+  ],
+  "rows": [
+    [
+      95.08508341731795
+    ]
+  ]
+}

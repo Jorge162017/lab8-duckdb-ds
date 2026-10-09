@@ -1,0 +1,54 @@
+{
+  "card_id": 52,
+  "status": "completed",
+  "columns": [
+    {
+      "name": "anio",
+      "base_type": "type/BigInteger"
+    },
+    {
+      "name": "tipo_taxi",
+      "base_type": "type/Text"
+    },
+    {
+      "name": "archivos",
+      "base_type": "type/BigInteger"
+    },
+    {
+      "name": "meses",
+      "base_type": "type/BigInteger"
+    },
+    {
+      "name": "registros",
+      "base_type": "type/BigInteger"
+    },
+    {
+      "name": "primer_mes",
+      "base_type": "type/Date"
+    },
+    {
+      "name": "ultimo_mes",
+      "base_type": "type/Date"
+    }
+  ],
+  "rows": [
+    [
+      2026,
+      "green",
+      8,
+      8,
+      337114,
+      "2026-01-01T00:00:00Z",
+      "2026-08-01T00:00:00Z"
+    ],
+    [
+      2026,
+      "yellow",
+      8,
+      8,
+      29703355,
+      "2026-01-01T00:00:00Z",
+      "2026-08-01T00:00:00Z"
+    ]
+  ]
+}

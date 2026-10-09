@@ -1,0 +1,80 @@
+[
+  {
+    "indicador": "01_viajes",
+    "filas": 1,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "02_retencion",
+    "filas": 1,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "03_distancia",
+    "filas": 1,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "04_total",
+    "filas": 1,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "05_mensual",
+    "filas": 16,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "06_hora",
+    "filas": 48,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "07_semana",
+    "filas": 14,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "08_duracion",
+    "filas": 2,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "09_distribucion",
+    "filas": 12,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "10_pago",
+    "filas": 11,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "11_propinas",
+    "filas": 2,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "12_negativos",
+    "filas": 11,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  },
+  {
+    "indicador": "13_cobertura",
+    "filas": 2,
+    "conteos_y_porcentajes_coinciden": true,
+    "medianas_aproximadas_se_comparan_como_referencia": true
+  }
+]

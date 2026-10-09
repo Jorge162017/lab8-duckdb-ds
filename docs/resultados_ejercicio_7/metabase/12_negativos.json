@@ -1,0 +1,105 @@
+{
+  "card_id": 51,
+  "status": "completed",
+  "columns": [
+    {
+      "name": "forma_pago",
+      "base_type": "type/Text"
+    },
+    {
+      "name": "tipo_taxi",
+      "base_type": "type/Text"
+    },
+    {
+      "name": "viajes_categoria",
+      "base_type": "type/BigInteger"
+    },
+    {
+      "name": "negativos",
+      "base_type": "type/BigInteger"
+    },
+    {
+      "name": "porcentaje_negativo",
+      "base_type": "type/Float"
+    }
+  ],
+  "rows": [
+    [
+      "Flex Fare",
+      "yellow",
+      7716688,
+      94,
+      0.0012181391809543162
+    ],
+    [
+      "Tarjeta",
+      "green",
+      219903,
+      137,
+      0.06230019599550711
+    ],
+    [
+      "Tarjeta",
+      "yellow",
+      18940892,
+      3511,
+      0.018536613798336425
+    ],
+    [
+      "Efectivo",
+      "green",
+      65902,
+      43,
+      0.06524839913811417
+    ],
+    [
+      "Efectivo",
+      "yellow",
+      2708007,
+      39646,
+      1.4640287118903312
+    ],
+    [
+      "Sin cargo",
+      "green",
+      1686,
+      563,
+      33.3926453143535
+    ],
+    [
+      "Sin cargo",
+      "yellow",
+      98132,
+      17727,
+      18.06444381037786
+    ],
+    [
+      "Disputa",
+      "green",
+      750,
+      279,
+      37.2
+    ],
+    [
+      "Disputa",
+      "yellow",
+      239488,
+      100854,
+      42.112339657936936
+    ],
+    [
+      "Desconocido",
+      "yellow",
+      2,
+      0,
+      0.0
+    ],
+    [
+      "Sin dato",
+      "green",
+      48775,
+      0,
+      0.0
+    ]
+  ]
+}

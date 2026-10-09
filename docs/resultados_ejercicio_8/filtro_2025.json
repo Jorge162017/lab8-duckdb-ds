@@ -1,0 +1,9 @@
+{
+  "status": "completed",
+  "rows": [
+    [
+      49313515
+    ]
+  ],
+  "expected_duckdb": 49313515
+}

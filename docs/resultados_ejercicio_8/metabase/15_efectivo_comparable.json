@@ -1,0 +1,50 @@
+{
+  "card_id": 54,
+  "status": "completed",
+  "columns": [
+    {
+      "name": "anio",
+      "base_type": "type/Text"
+    },
+    {
+      "name": "tipo_taxi",
+      "base_type": "type/Text"
+    },
+    {
+      "name": "porcentaje_efectivo",
+      "base_type": "type/Float"
+    }
+  ],
+  "rows": [
+    [
+      "2024",
+      "green",
+      27.176450685163253
+    ],
+    [
+      "2024",
+      "yellow",
+      13.934316641410172
+    ],
+    [
+      "2025",
+      "green",
+      22.64292771469011
+    ],
+    [
+      "2025",
+      "yellow",
+      9.849780441463357
+    ],
+    [
+      "2026",
+      "green",
+      19.554561207776484
+    ],
+    [
+      "2026",
+      "yellow",
+      9.116883633684159
+    ]
+  ]
+}

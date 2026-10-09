@@ -1,0 +1,15 @@
+{
+  "card_id": 40,
+  "status": "completed",
+  "columns": [
+    {
+      "name": "viajes",
+      "base_type": "type/BigInteger"
+    }
+  ],
+  "rows": [
+    [
+      30040225
+    ]
+  ]
+}

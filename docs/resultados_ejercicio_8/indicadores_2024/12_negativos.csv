@@ -1,0 +1,13 @@
+forma_pago,tipo_taxi,viajes_categoria,negativos,porcentaje_negativo
+Flex Fare,yellow,4091232,2553.0,0.06240174108923669
+Tarjeta,green,454560,0.0,0.0
+Tarjeta,yellow,30451822,251.0,0.0008242528148233626
+Efectivo,green,174980,55.0,0.03143216367584867
+Efectivo,yellow,5540011,146989.0,2.65322577879358
+Sin cargo,green,4596,1488.0,32.37597911227154
+Sin cargo,yellow,291739,90680.0,31.082577235131403
+Disputa,green,1561,619.0,39.65406790518898
+Disputa,yellow,794492,368867.0,46.42803200032222
+Desconocido,green,29,0.0,0.0
+Desconocido,yellow,4,0.0,0.0
+Sin dato,green,24328,10.0,0.041104899704044726

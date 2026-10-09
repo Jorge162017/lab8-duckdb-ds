@@ -1,0 +1,15 @@
+{
+  "card_id": 42,
+  "status": "completed",
+  "columns": [
+    {
+      "name": "mediana_millas",
+      "base_type": "type/Float"
+    }
+  ],
+  "rows": [
+    [
+      1.9346661353955785
+    ]
+  ]
+}

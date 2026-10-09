@@ -1,0 +1,34 @@
+{
+  "parameters": [
+    {
+      "id": "4d19b480-5a3f-5d0e-943d-5c3e8983bd03",
+      "type": "number",
+      "value": 2024,
+      "target": [
+        "variable",
+        [
+          "template-tag",
+          "anio"
+        ]
+      ]
+    },
+    {
+      "id": "72651d71-6dc5-5365-96c9-bd956ae7f78a",
+      "type": "category",
+      "value": "green",
+      "target": [
+        "variable",
+        [
+          "template-tag",
+          "tipo_taxi"
+        ]
+      ]
+    }
+  ],
+  "status": "completed",
+  "rows": [
+    [
+      660054
+    ]
+  ]
+}

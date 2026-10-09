@@ -1,0 +1,15 @@
+{
+  "card_id": 43,
+  "status": "completed",
+  "columns": [
+    {
+      "name": "mediana_usd",
+      "base_type": "type/Float"
+    }
+  ],
+  "rows": [
+    [
+      23.555960770678123
+    ]
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "dashboard_id": 2,
+  "url": "http://localhost:3000/dashboard/2",
+  "database_id": 2,
+  "read_only": true,
+  "cards": {
+    "01_viajes": 40,
+    "02_retencion": 41,
+    "03_distancia": 42,
+    "04_total": 43,
+    "05_mensual": 44,
+    "06_hora": 45,
+    "07_semana": 46,
+    "08_duracion": 47,
+    "09_distribucion": 48,
+    "10_pago": 49,
+    "11_propinas": 50,
+    "12_negativos": 51,
+    "13_cobertura": 52,
+    "14_demanda_comparable": 53,
+    "15_efectivo_comparable": 54,
+    "16_total_comparable": 55
+  },
+  "indicadores": 16,
+  "verificados": true,
+  "fecha_utc": "2026-10-09T00:06:27.737411+00:00"
+}

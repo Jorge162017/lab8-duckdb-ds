@@ -9,12 +9,24 @@ data/processed/**
 *.duckdb.wal
 *.part
 
+# Credenciales locales, incluso si se copian fuera de data/processed
+.env
+.env.*
+!.env.example
+metabase_session.json
+metabase_credentials.json
+metabase_browser_state.json
+
 # Python
 __pycache__/
 *.py[cod]
 .venv/
 venv/
 .ipynb_checkpoints/
+.pytest_cache/
+node_modules/
+*.log
+*.tmp
 
 # Jupyter
 .jupyter/

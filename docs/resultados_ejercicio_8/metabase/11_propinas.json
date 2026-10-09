@@ -1,0 +1,36 @@
+{
+  "card_id": 50,
+  "status": "completed",
+  "columns": [
+    {
+      "name": "tipo_taxi",
+      "base_type": "type/Text"
+    },
+    {
+      "name": "viajes_elegibles",
+      "base_type": "type/BigInteger"
+    },
+    {
+      "name": "porcentaje_sin_propina",
+      "base_type": "type/Float"
+    },
+    {
+      "name": "tasa_mediana",
+      "base_type": "type/Float"
+    }
+  ],
+  "rows": [
+    [
+      "green",
+      212456,
+      8.664382272093986,
+      23.565109691547026
+    ],
+    [
+      "yellow",
+      18460906,
+      8.88229429259864,
+      26.407209303991536
+    ]
+  ]
+}

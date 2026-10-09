@@ -1,0 +1,30 @@
+{
+  "card_id": 47,
+  "status": "completed",
+  "columns": [
+    {
+      "name": "tipo_taxi",
+      "base_type": "type/Text"
+    },
+    {
+      "name": "viajes",
+      "base_type": "type/BigInteger"
+    },
+    {
+      "name": "mediana_minutos",
+      "base_type": "type/Float"
+    }
+  ],
+  "rows": [
+    [
+      "green",
+      323668,
+      13.34628303057149
+    ],
+    [
+      "yellow",
+      28240105,
+      14.10262862119456
+    ]
+  ]
+}

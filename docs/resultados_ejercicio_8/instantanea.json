@@ -1,0 +1,7 @@
+{
+  "database_file": "data/processed/analitica/taxis_2024_2025_2026_f8c82cc0ebe1.duckdb",
+  "registros": 121184384,
+  "archivos": 64,
+  "bytes_duckdb": 3464507392,
+  "anteriores_preservados": 40
+}
